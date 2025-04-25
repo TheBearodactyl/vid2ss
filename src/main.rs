@@ -2,15 +2,8 @@ use {
     clap::Parser,
     cli::CliArgs,
     cli::vidtoss,
-    image::{AnimationDecoder, DynamicImage, Frame, RgbaImage, codecs::gif::GifDecoder, imageops},
-    rand::Rng,
-    std::{
-        error::Error,
-        fs::File,
-        io::BufReader,
-        path::{Path, PathBuf},
-        process::Stdio,
-    },
+    image::{AnimationDecoder, RgbaImage, codecs::gif::GifDecoder, imageops},
+    std::{error::Error, fs::File, io::BufReader, path::Path, process::Stdio},
 };
 
 mod cli;
@@ -98,10 +91,8 @@ fn create_sprite_sheet(
 
         frame_count = frame_count.wrapping_add(1);
 
-        if argv.max_frames.is_some() {
-            if frame_count >= argv.max_frames.unwrap() {
-                break;
-            }
+        if argv.max_frames.is_some() && frame_count >= argv.max_frames.unwrap() {
+            break;
         }
     }
 
