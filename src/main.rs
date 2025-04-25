@@ -98,8 +98,10 @@ fn create_sprite_sheet(
 
         frame_count = frame_count.wrapping_add(1);
 
-        if frame_count >= argv.max_frames.unwrap() {
-            break;
+        if argv.max_frames.is_some() {
+            if frame_count >= argv.max_frames.unwrap() {
+                break;
+            }
         }
     }
 

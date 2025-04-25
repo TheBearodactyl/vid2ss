@@ -1,5 +1,6 @@
 use crate::{convert_vid_to_gif_file, create_sprite_sheet};
 use clap::Parser;
+use clap_markdown_dfir::MarkdownOptions;
 use rand::Rng;
 use std::error::Error;
 use std::path::{Path, PathBuf};
@@ -49,6 +50,10 @@ pub struct CliArgs {
     /// The maximum amount of frames to be processed
     #[arg(short = 'm', long)]
     pub max_frames: Option<u32>,
+
+    /// Output help as markdown
+    #[arg(short = 'd', long)]
+    md_help: bool,
 }
 
 pub fn vidtoss() -> Result<(), Box<dyn Error>> {
@@ -111,6 +116,10 @@ pub fn vidtoss() -> Result<(), Box<dyn Error>> {
             Ok(_) => info!("Successfully removed temporary file"),
             Err(e) => error!("Failed to remove temporary file: {}", e),
         }
+    }
+
+    if argv.md_help {
+        clap_markdown_dfir::print_help_markdown::<CliArgs>(MarkdownOptions::default());
     }
 
     Ok(())
