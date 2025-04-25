@@ -52,7 +52,7 @@ pub struct CliArgs {
     pub max_frames: Option<u32>,
 
     /// Output help as markdown
-    #[arg(short = 'd', long)]
+    #[arg(short = 'd', long, hide = true)]
     md_help: bool,
 }
 
